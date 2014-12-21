@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>JSONP Test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=processJSON&tags=monkey&tagmode=any&format=json";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'test-jssdk'));
+        </script>
+        <script>
+            function processJSON(jsondata) {
+                // Do something with the JSON response
+                var text = '';
+                var len = jsondata.items.length;
+                for (var i = 0; i < len; i++) {
+                    row = jsondata.items[i];
+                    text += '<li><img src = "' + row.media.m + '"/><br>' + row.title + '</li>'
+                }
+                document.getElementById('twitterFeed').innerHTML = '<ul>' + text + '</ul>';
+            }
+            ;
+        </script>
+        <div>
+            <h1>JSONP Working example - 1</h1>
+            <p>Call an API from remote server(Flicker) and insert data in Local Server</p>
+        </div>
+        <div id="twitterFeed"></div>
+    </body>
+</html>
