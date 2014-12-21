@@ -1,13 +1,20 @@
 var VideoChat = {
-    initScript: function(text) {
-        VideoChat.addBtn(text);
+    appId: '',
+    text: '',
+    initScript: function(appId, text) {
+        VideoChat.appId = appId;
+        VideoChat.text = text;
+        VideoChat.addBtn();
     },
-    addBtn: function(text){
-        document.getElementById('dataPlaceholder').innerHTML = '<button id="videochatPopupBtn" onclick="VideoChat.openPopup()">' + text + '</button>';
-        
+    addBtn: function() {
+        if (VideoChat.appId === '1234') {
+            document.getElementById('dataPlaceholder').innerHTML = '<button id="videochatPopupBtn" onclick="VideoChat.openPopup()">' + VideoChat.text + '</button>';
+        } else {
+            document.getElementById('dataPlaceholder').innerHTML = 'Sorry! You are not authorized.';
+        }
     },
-    openPopup: function(){
-        window.open("http://www.w3schools.com", "MsgWindow", "width=300, height=400");
+    openPopup: function() {
+        window.open("http://videochat.khanahero.com/chats/add?appId=" + VideoChat.appId, "MsgWindow", "width=400, height=500");
     }
 };
-VideoChat.initScript('Tahmina');
+VideoChat.initScript(appId, chatBtnTxt);
